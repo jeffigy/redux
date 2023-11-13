@@ -1,5 +1,6 @@
 const redux = require("redux");
 const createStore = redux.legacy_createStore;
+const bindActionCreators = redux.bindActionCreators;
 
 //* Action
 // type of action
@@ -60,9 +61,15 @@ const unsubscribe = store.subscribe(() =>
 
 // dispatch an action -> reducer matches the action 'type' which is
 // "CAKE_ORDERED" and returns the new state
-store.dispatch(orderCake());
-store.dispatch(orderCake());
-store.dispatch(orderCake());
-store.dispatch(restockCake(3));
+// store.dispatch(orderCake());
+// store.dispatch(orderCake());
+// store.dispatch(orderCake());
+// store.dispatch(restockCake(3));
+
+const actions = bindActionCreators({ orderCake, restockCake }, store.dispatch);
+actions.orderCake();
+actions.orderCake();
+actions.orderCake();
+actions.restockCake(3);
 
 unsubscribe();
