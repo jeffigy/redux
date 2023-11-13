@@ -1,3 +1,6 @@
+const redux = require("redux");
+const createStore = redux.legacy_createStore;
+
 //* Action
 // type of action
 const CAKE_ORDERED = "CAKE_ORDERED";
@@ -29,3 +32,23 @@ const reducer = (state = initialState, action) => {
       return state;
   }
 };
+
+//* Store
+// controls how state transitions happen
+const store = createStore(reducer);
+
+// logs the initial state
+console.log("Initial state", store.getState());
+
+// store listener; any time the state changes, this function will be called
+const unsubscribe = store.subscribe(() =>
+  console.log("Updated state", store.getState())
+);
+
+// dispatch an action -> reducer matches the action 'type' which is
+// "CAKE_ORDERED" and returns the new state
+store.dispatch(orderCake());
+store.dispatch(orderCake());
+store.dispatch(orderCake());
+
+unsubscribe();
