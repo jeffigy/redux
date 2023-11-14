@@ -2,6 +2,10 @@ const redux = require("redux");
 const createStore = redux.legacy_createStore;
 const bindActionCreators = redux.bindActionCreators;
 const combineReducers = redux.combineReducers;
+const applyMiddleware = redux.applyMiddleware;
+
+const reduxLogger = require("redux-logger");
+const logger = reduxLogger.createLogger();
 
 //* Action
 // type of action
@@ -108,15 +112,14 @@ const rootReducer = combineReducers({
 
 //* Store
 // controls how state transitions happen
-const store = createStore(rootReducer);
+// added logger middleware
+const store = createStore(rootReducer, applyMiddleware(logger));
 
 // logs the initial state
 console.log("Initial state", store.getState());
 
 // store listener; any time the state changes, this function will be called
-const unsubscribe = store.subscribe(() =>
-  console.log("Updated state", store.getState())
-);
+const unsubscribe = store.subscribe(() => {});
 
 // dispatch an action -> reducer matches the action 'type' which is
 // "CAKE_ORDERED" and returns the new state
