@@ -6,6 +6,8 @@ const bindActionCreators = redux.bindActionCreators;
 // type of action
 const CAKE_ORDERED = "CAKE_ORDERED";
 const CAKE_RESTOCKED = "CAKE_RESTOCKED";
+const ICECREAM_ORDERED = "ICECREAM_ORDERED";
+const ICECREAM_RESTOCKED = "ICECREAM_RESTOCKED";
 
 // action creator
 // it is a function that returns an object
@@ -24,13 +26,35 @@ function restockCake(qty = 1) {
   };
 }
 
+function orderIcecream(qty = 1) {
+  return {
+    type: ICECREAM_ORDERED,
+    payload: qty,
+  };
+}
+
+function restockIcecream(qty = 1) {
+  return {
+    type: ICECREAM_RESTOCKED,
+    payload: qty,
+  };
+}
+
 //* Reducer
 // (previousState, action) => newState
-const initialState = {
+// const initialState = {
+//   numOfCakes: 10,
+//   numOfIcecreams: 20,
+// };
+const initialCakeState = {
   numOfCakes: 10,
 };
 
-const reducer = (state = initialState, action) => {
+const initialIcecreamState = {
+  numOfIcecreams: 20,
+};
+
+const cakeReducer = (state = initialCakeState, action) => {
   switch (action.type) {
     case CAKE_ORDERED:
       return {
@@ -42,6 +66,35 @@ const reducer = (state = initialState, action) => {
         ...state,
         numOfCakes: state.numOfCakes + action.payload,
       };
+    //* single reducer approach works, but difficult maintain in the long run
+    // case ICECREAM_ORDERED:
+    //   return {
+    //     ...state,
+    //     numOfIcecreams: state.numOfIcecreams - 1,
+    //   };
+    // case ICECREAM_RESTOCKED:
+    //   return {
+    //     ...state,
+    //     numOfIcecreams: state.numOfIcecreams + action.payload,
+    //   };
+    default:
+      return state;
+  }
+};
+
+const iceCreamReducer = (state = initialIcecreamState, action) => {
+  switch (action.type) {
+    case CAKE_ORDERED:
+      return {
+        ...state,
+        numOfCakes: state.numOfCakes - 1,
+      };
+    case CAKE_RESTOCKED:
+      return {
+        ...state,
+        numOfCakes: state.numOfCakes + action.payload,
+      };
+
     default:
       return state;
   }
@@ -66,10 +119,18 @@ const unsubscribe = store.subscribe(() =>
 // store.dispatch(orderCake());
 // store.dispatch(restockCake(3));
 
-const actions = bindActionCreators({ orderCake, restockCake }, store.dispatch);
+// bindActionCreators is a helper function that binds action creators
+// but it is not necessary to use it
+const actions = bindActionCreators(
+  { orderCake, restockCake, orderIcecream, restockIcecream },
+  store.dispatch
+);
 actions.orderCake();
 actions.orderCake();
 actions.orderCake();
 actions.restockCake(3);
+actions.orderIcecream();
+actions.orderIcecream();
+actions.restockIcecream(2);
 
 unsubscribe();
