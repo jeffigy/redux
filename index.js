@@ -1,6 +1,7 @@
 const redux = require("redux");
 const createStore = redux.legacy_createStore;
 const bindActionCreators = redux.bindActionCreators;
+const combineReducers = redux.combineReducers;
 
 //* Action
 // type of action
@@ -87,22 +88,27 @@ const iceCreamReducer = (state = initialIcecreamState, action) => {
     case CAKE_ORDERED:
       return {
         ...state,
-        numOfCakes: state.numOfCakes - 1,
+        numOfIcecreams: state.numOfIcecreams - 1,
       };
     case CAKE_RESTOCKED:
       return {
         ...state,
-        numOfCakes: state.numOfCakes + action.payload,
+        numOfIcecreams: state.numOfIcecreams + action.payload,
       };
-
     default:
       return state;
   }
 };
 
+//* combine Reducer
+const rootReducer = combineReducers({
+  cake: cakeReducer,
+  icecream: iceCreamReducer,
+});
+
 //* Store
 // controls how state transitions happen
-const store = createStore(reducer);
+const store = createStore(rootReducer);
 
 // logs the initial state
 console.log("Initial state", store.getState());
