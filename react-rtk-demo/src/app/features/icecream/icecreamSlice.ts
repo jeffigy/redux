@@ -26,11 +26,11 @@ const icecreamSlice = createSlice({
   //   },
   // },
   //* new
-  extraReducers: (builder) => {
-    builder.addCase(cakeOrdered, (state) => {
-      state.numOfIcecreams--;
-    });
-  },
+  // extraReducers: (builder) => {
+  //   builder.addCase(cakeOrdered, (state) => {
+  //     state.numOfIcecreams--;
+  //   });
+  // },
 });
 
 export default icecreamSlice.reducer;
