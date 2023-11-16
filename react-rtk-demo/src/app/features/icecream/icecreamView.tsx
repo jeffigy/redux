@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
+import { useAppSelector, useAppDispatch } from "../../hooks";
 import { ordered, restocked } from "./icecreamSlice";
 type icecreamViewProps = {};
 
 const icecreamView: React.FC<icecreamViewProps> = () => {
-  const numOfIcecreams = useSelector(
-    (state: any) => state.icecream.numOfIcecreams
+  const numOfIcecreams = useAppSelector(
+    (state) => state.icecream.numOfIcecreams
   );
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [value, setvalue] = useState(1);
   return (
     <div>

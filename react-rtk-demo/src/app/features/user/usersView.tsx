@@ -1,14 +1,12 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
 import { fetchUsers } from "./userSlice";
-import { ThunkDispatch } from "redux-thunk";
-import { AnyAction } from "redux";
-
+import { useAppSelector, useAppDispatch } from "../../hooks";
 type usersViewProps = {};
 
 const usersView: React.FC<usersViewProps> = () => {
-  const user = useSelector((state: any) => state.user);
-  const dispatch: ThunkDispatch<any, void, AnyAction> = useDispatch();
+  const user = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchUsers());
   }, []);
