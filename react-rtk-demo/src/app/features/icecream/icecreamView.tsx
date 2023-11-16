@@ -7,7 +7,7 @@ const icecreamView: React.FC<icecreamViewProps> = () => {
     <div>
       <h2>number of icecreams</h2> <br />
       <button>Oder icecream</button>
-      <br />
+      {/* <br /> */}
       <button>Restock icecream</button>
       <br />
     </div>

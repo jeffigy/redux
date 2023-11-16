@@ -7,7 +7,7 @@ const cakeView: React.FC<cakeViewProps> = () => {
     <div>
       <h2>number of cakes</h2> <br />
       <button>Oder Cake</button>
-      <br />
+      {/* <br /> */}
       <button>Restock Cake</button>
       <br />
     </div>

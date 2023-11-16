@@ -4,7 +4,7 @@ import UsersView from "./app/features/user/usersView";
 
 function App() {
   return (
-    <div>
+    <div id="root" className="App">
       <CakeView />
       <IcecreamView />
       <UsersView />
